@@ -67,6 +67,34 @@
   border-bottom-right-radius: 16px 14px;
   -webkit-transform: translate(0, -2px);
 }
+
+#initConnect {
+  display: none;
+}
+
+pre {
+  width: 40%;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+#messages {
+  margin-left: 57.5%;
+  margin-top: 75px;
+}
+
+#connect {
+  margin-bottom: 15px;
+}
+
+#send {
+  margin-left: 10px;
+}
+
+#yourMessage {
+  width: 300px;
+}
+
 /*.from-them:after {
   content: "";
   position: absolute;

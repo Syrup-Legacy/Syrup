@@ -12,7 +12,18 @@ class VideoChatInit extends React.Component {
   componentDidMount() {
     this.props.location.query.socket.on('agreeVideoChat', (fromName, returnId) => {
       document.getElementById('otherId').value = JSON.stringify(returnId)
+      $('#initConnect').toggle();
     });
+
+    $("#send").click(function() {
+      $("pre").animate({ scrollTop: $("pre").height() + 500 }, "slow");
+    });
+    $(document).keypress(function(e) {
+      if(e.which == 13) {
+        $("pre").animate({ scrollTop: $("pre").height() + 500 }, "slow");
+      }
+    });
+
     // '/' will trigger the .on('connection') event on the server side, connects everytime the component mounts
     setTimeout(() => {
       if (this.props.location.query) {
@@ -35,19 +46,20 @@ class VideoChatInit extends React.Component {
         document.getElementById('yourId').value = JSON.stringify(data)
     })
 
-    document.getElementById('connect').addEventListener('click', () => {
+    document.getElementById('initConnect').addEventListener('click', () => {
         let otherId = JSON.parse(document.getElementById('otherId').value)
         peer.signal(otherId)
     })
 
     document.getElementById('send').addEventListener('click', () => {
         let yourMessage = document.getElementById('yourMessage').value
+        document.getElementById('messages').textContent += 'Me : ' + yourMessage + '\n'
         peer.send(yourMessage)
     })
 
 
     peer.on('data', (data) => {
-        document.getElementById('messages').textContent += data + '\n'
+        document.getElementById('messages').textContent += this.props.location.query.toName + ' : ' + data + '\n'
     })
 
     peer.on('stream', (stream) => {
@@ -66,8 +78,6 @@ class VideoChatInit extends React.Component {
 
   render() {
 
-    console.log('HEEEEEREEEE')
-
     return (
       <div className="videoChatBox">
         <div className="videoChatHide">
@@ -78,7 +88,7 @@ class VideoChatInit extends React.Component {
         </div>
 
         <div className="videoChatBox">
-          <button id="connect">connect</button>
+          <button id="initConnect">connect</button>
           <div>Enter Message:</div>
           <textarea id="yourMessage"></textarea>
           <button id="send">send</button>
