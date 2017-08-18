@@ -78,7 +78,7 @@ class VideoChat extends React.Component {
         </div>
 
         <div className="videoChatBox">
-          <button id="connect">connect</button>
+          <button id="connect">Connect Here!</button>
           <div>Enter Message:</div>
           <textarea id="yourMessage"></textarea>
           <button id="send">send</button>

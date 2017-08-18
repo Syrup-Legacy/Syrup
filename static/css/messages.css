@@ -70,12 +70,17 @@
 
 #initConnect {
   display: none;
+  margin-bottom: 15px;
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 20px;
 }
 
 pre {
   width: 40%;
   height: 500px;
   overflow-y: scroll;
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 20px;
 }
 
 #messages {
@@ -85,14 +90,19 @@ pre {
 
 #connect {
   margin-bottom: 15px;
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 20px;
 }
 
 #send {
   margin-left: 10px;
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 20px;
 }
 
 #yourMessage {
   width: 300px;
+  margin-left: 25px;
 }
 
 /*.from-them:after {
