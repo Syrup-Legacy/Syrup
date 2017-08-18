@@ -88,7 +88,7 @@ class VideoChatInit extends React.Component {
         </div>
 
         <div className="videoChatBox">
-          <button id="initConnect">connect</button>
+          <button id="initConnect">Ready to Connect!</button>
           <div>Enter Message:</div>
           <textarea id="yourMessage"></textarea>
           <button id="send">send</button>
