@@ -55,8 +55,9 @@ form.message-form button { width: 9%; background:lightblue; border: none; paddin
 }
 
 video {
-  margin-left: 25%;
+  margin-top: -550px;
   width: 50%;
+  margin-left: 2.5%;
 }
 
 .videoChatBox {
