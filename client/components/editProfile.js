@@ -22,11 +22,13 @@ class editProfile extends Component {
       bio: '',
       gender: '',
       age: '',
+      phoneNumber: '',
       uploadedProfileCloudinaryUrl: '',
       uploadedFileCloudinaryUrl: ''
     }
 
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handleOnUpdate = this.handleOnUpdate.bind(this);
     this.onImageDrop = this.onImageDrop.bind(this);
     this.onProfileImageDrop = this.onProfileImageDrop.bind(this);
@@ -93,9 +95,16 @@ class editProfile extends Component {
   }
 
   handleOnChange(event) {
+    console.log('temp')
     let temp = event.target.name;
     this.setState({
       [temp]: event.target.value
+    })
+  }
+  handlePhoneChange(event) {
+    console.log(event.target.name, '1'+event.target.value);
+    this.setState({
+      phoneNumber: '+1'+event.target.value
     })
   }
 
@@ -126,6 +135,7 @@ class editProfile extends Component {
         bio: '',
         gender: '',
         age: '',
+        phoneNumber:'',
         uploadedProfileCloudinaryUrl: '',
         uploadedFileCloudinaryUrl: ''
       })
@@ -167,6 +177,12 @@ class editProfile extends Component {
                     <label className="col-sm-2 control-label">Age</label>
                     <div className="col-sm-10">
                       <input name="age" onChange={this.handleOnChange} type="text" className="form-control"/>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className="col-sm-2 control-label">Phone #(optional)</label>
+                    <div className="col-sm-10">
+                      <input name="phoneNumber" onChange={this.handlePhoneChange} type="text" className="form-control"/>
                     </div>
                   </div>
                   <div className="form-group">

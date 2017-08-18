@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const express = require('express');
 const Model = require('../../db/models/model');
 const data = require('../../data');
+const client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 module.exports = {
   addProfile: (req, res) => {
@@ -14,6 +15,7 @@ module.exports = {
         gender: req.body.gender,
         bio: req.body.bio,
         profilepic: req.body.profilepic,
+        phone_number: req.body.phoneNumber,
         images: req.body.images
       }
     })
@@ -59,7 +61,6 @@ module.exports = {
   getProfile: (req, res) => {
     Model.User.findById(req.params.id)
     .then(response => {
-
       console.log(response);
       console.log('getProfile on controller.js')
       res.send(response);
@@ -74,12 +75,44 @@ module.exports = {
   },
 
   connectMatch: (req, res) => {
-    console.log('CONNECT MATCH REQ!!!! ', req);
+    console.log('CONNECT MATCH REQ!!!! ', req.params);
     Model.Match.create({
       userId: req.params.subject_id,
       matcheeId: req.params.id,
     })
     .then(data => {
+      Model.User.findAll({
+        where: {
+          // id: req.params.id,
+          // $or: [
+          //   {id: req.params.subject_id },
+          // ]
+          id: {
+            $or: [req.params.subject_id, req.params.id]
+          }
+        }
+      })
+      .then(matchedPersons => {
+        
+        for (var i = 0; i < matchedPersons.length; i++) {
+          var otherPerson = i === 0 ? 1 : 0;
+          console.log('otherPerson: ', otherPerson);
+          client.messages.create({
+            to: matchedPersons[i].phone_number,
+            from: process.env.TWILIO_NUM,
+            body: `you have a match with ${matchedPersons[otherPerson].firstname}!`
+          }, function(err, message) {
+            if (err) {
+              console.log(`error in twilio send ${err}`);
+            } else {
+              console.log(message.sid);
+            }
+          })
+        }
+      })
+      .catch(err => {
+        console.log('error in finding id for twilio', err);
+      })
       res.status(201).send(data)
     })
     .catch(err => {
@@ -130,7 +163,7 @@ module.exports = {
   },
 
   updateProfile: (req, res) => {
-    console.log(req.body);
+    console.log('in the updateProfile', req.body);
     console.log('updateProfile');
     Model.User.update({
       firstname: req.body.firstname,
@@ -138,6 +171,7 @@ module.exports = {
       gender: req.body.gender,
       bio: req.body.bio,
       profilepic: req.body.profilepic,
+      phone_number: req.body.phoneNumber,
       images: req.body.images
     }, {where: {id: req.params.id}, returning: true})
       .then(update => {

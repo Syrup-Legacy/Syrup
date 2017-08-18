@@ -42,6 +42,7 @@
     "simple-peer": "^8.1.1",
     "socket.io": "^2.0.3",
     "superagent": "^3.5.2",
+    "twilio": "^3.6.2",
     "webpack": "^3.4.1"
   }
 }

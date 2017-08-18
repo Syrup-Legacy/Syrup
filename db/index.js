@@ -7,10 +7,9 @@ const db = new Sequelize(process.env.DATABASE_URL, {
   pool: {
     max: 3,
     min: 0,
-    idle: 10000
+    idle: 1000
   },
 });
-
 
 db.authenticate()
   .then(() =>
