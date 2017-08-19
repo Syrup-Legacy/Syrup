@@ -2,7 +2,7 @@ const router = require('express').Router();
 const controller = require('../controller/controller');
 const griffController = require('../controller/griffController');
 
-// //Submiting a Face Photo 
+// //Submiting a Face Photo
 // router.post('/upload', controller.uploadPhoto);
 //Connect with match
 router.post('/match/:id/:subject_id', controller.connectMatch);
@@ -15,6 +15,7 @@ router.get('/matches/:userId', controller.getMatches);
 // //Add personal info *********CHANGEDDDD*********
 router.post('/profile', controller.addProfile);
 router.get('/users', griffController.getAllUsers)
+router.put('/updateCoordinates', griffController.updateCoordinates)
 // //Edit personali info
 // router.put('/profile/:id', controller.editProfile);
 // //Upload profile pic

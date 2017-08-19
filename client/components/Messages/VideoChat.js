@@ -11,6 +11,15 @@ class VideoChat extends React.Component {
 
   componentDidMount() {
     this.socket = io('/')
+
+    $("#send").click(function() {
+      $("pre").animate({ scrollTop: $("pre").height() + 500 }, "slow");
+    });
+    $(document).keypress(function(e) {
+      if(e.which == 13) {
+        $("pre").animate({ scrollTop: $("pre").height() + 500 }, "slow");
+      }
+    });
     // '/' will trigger the .on('connection') event on the server side, connects everytime the component mounts
 
     navigator.webkitGetUserMedia({video: true, audio: true}, (stream) => {
@@ -34,12 +43,13 @@ class VideoChat extends React.Component {
 
       document.getElementById('send').addEventListener('click', () => {
           let yourMessage = document.getElementById('yourMessage').value
+          document.getElementById('messages').textContent += 'Me : ' + yourMessage + '\n'
           peer.send(yourMessage)
       })
 
 
       peer.on('data', (data) => {
-          document.getElementById('messages').textContent += data + '\n'
+          document.getElementById('messages').textContent += localStorage.toUser + ' : ' + data + '\n'
       })
 
       peer.on('stream', (stream) => {
@@ -68,7 +78,7 @@ class VideoChat extends React.Component {
         </div>
 
         <div className="videoChatBox">
-          <button id="connect">connect</button>
+          <button id="connect">Connect Here!</button>
           <div>Enter Message:</div>
           <textarea id="yourMessage"></textarea>
           <button id="send">send</button>

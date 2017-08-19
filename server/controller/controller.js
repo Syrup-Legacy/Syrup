@@ -16,7 +16,9 @@ module.exports = {
         bio: req.body.bio,
         profilepic: req.body.profilepic,
         phone_number: req.body.phoneNumber,
-        images: req.body.images
+        images: req.body.images,
+        latitude: -117.9354168,
+        longitude: 33.9246179
       }
     })
   .then(data => {
@@ -42,11 +44,11 @@ module.exports = {
       res.status(404).send(err)
     })
   },
-  
+
   getMessages: (req, res) => {
     Model.Message.findAll({
       where: {
-        userId: req.params.userId, 
+        userId: req.params.userId,
         recipientId: req.params.recipientId
       }
     })
@@ -93,7 +95,7 @@ module.exports = {
         }
       })
       .then(matchedPersons => {
-        
+
         for (var i = 0; i < matchedPersons.length; i++) {
           var otherPerson = i === 0 ? 1 : 0;
           console.log('otherPerson: ', otherPerson);

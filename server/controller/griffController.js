@@ -26,5 +26,16 @@ module.exports = {
 			.catch(err => {
 				res.status(404).send(err)
 			})
+	},
+	updateCoordinates : (req, res) => {
+		db.User.Update({
+			latitude : -117.9854168,
+			longitutde: 33.9246179
+		}, {
+			where: { id : id}
+		})
+		 .then(result => {
+			 res.status(200).send(result)
+		 })
 	}
 }
