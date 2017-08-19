@@ -26,7 +26,7 @@ export default class Auth {
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        axios.get('https://stephaniefu.auth0.com/userinfo', {
+        axios.get('https://austenwma.auth0.com/userinfo', {
           headers: {'Authorization': `Bearer ${authResult.accessToken}`}
         })
     .then(({ data }) => {
@@ -36,7 +36,9 @@ export default class Auth {
       data.sub = data.sub.slice(data.sub.length - 2)
       axios.post('/api/profile', {
         email: data.name,
-        id: data.sub
+        id: data.sub,
+        latitude: -117.9354168,
+        longitude: 33.9246179
       })
       .then(res => {
         console.log('asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfsdafasdfasdf',res);
